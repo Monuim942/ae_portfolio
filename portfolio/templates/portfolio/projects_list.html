@@ -1,0 +1,608 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Abdelmonuim Ennegaz | AE DataTactics - Football Intelligence Platform</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- AOS Animation Library CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        pitchGreen: '#22c55e', /* الأخضر الفاتح المنعش */
+                        softBg: '#f8fafc' 
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .premium-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border: 1px solid rgba(34, 197, 94, 0.15);
+        }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* --- سينما الملعب ثلاثي الأبعاد في الخلفية --- */
+        .pitch-container {
+            perspective: 1600px;
+            overflow: hidden;
+        }
+        .tactical-pitch {
+            transform: rotateX(52deg) rotateZ(-10deg);
+            background-image: 
+                linear-gradient(rgba(34, 197, 94, 0.08) 2px, transparent 2px),
+                linear-gradient(90deg, rgba(34, 197, 94, 0.08) 2px, transparent 2px);
+            background-size: 55px 55px;
+        }
+        @keyframes trackingData {
+            0% { transform: translate(0, 0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(300px, -150px); opacity: 0; }
+        }
+        @keyframes trackingData2 {
+            0% { transform: translate(220px, 100px); opacity: 0; }
+            15% { opacity: 0.9; }
+            85% { opacity: 0.9; }
+            100% { transform: translate(-100px, -220px); opacity: 0; }
+        }
+        .data-node-1 { animation: trackingData 6s infinite linear; }
+        .data-node-2 { animation: trackingData2 9s infinite linear; }
+        
+        /* أنيميشن الدوران اللوجو الخاص بك */
+        @keyframes logoGlow {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 20px rgba(34, 197, 94, 0.2); }
+            50% { transform: scale(1.05); box-shadow: 0 0 35px rgba(34, 197, 94, 0.4); }
+        }
+        .animated-logo-zone { animation: logoGlow 4s infinite ease-in-out; }
+    
+
+
+
+#splash-screen{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+    transition: opacity 1s ease;
+}
+
+#splash-screen img{
+    width: 250px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%{transform: scale(1);}
+    50%{transform: scale(1.1);}
+    100%{transform: scale(1);}
+}
+#projectModal img{
+    transition: 0.4s;
+}
+
+#projectModal img:hover{
+    transform: scale(1.03);
+}
+    </style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800 font-sans antialiased selection:bg-pitchGreen selection:text-white overflow-x-hidden">
+<div id="splash-screen">
+    <img src="{% static 'images/logo.png' %}" alt="Logo">
+</div>
+    <!-- HERO + ANIMATED PITCH BACKGROUND -->
+    <div class="relative min-h-screen w-full bg-gradient-to-b from-emerald-50/70 via-white to-softBg overflow-hidden flex flex-col justify-between">
+        
+        <!-- الملعب التفاعلي المتحرك في الخلفية -->
+        <div class="absolute inset-0 w-full h-full pointer-events-none z-0 pitch-container opacity-85">
+            <div class="tactical-pitch absolute top-[2%] left-[5%] w-[120%] h-[120%] border-2 border-emerald-500/25 rounded-md bg-white shadow-inner">
+                <div class="absolute top-1/2 left-0 w-full h-[2px] bg-emerald-500/10"></div>
+                <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-60 h-60 rounded-full border-2 border-emerald-500/10"></div>
+                <div class="absolute top-0 left-1/4 w-1/2 h-48 border-b-2 border-x-2 border-emerald-500/10"></div>
+                <div class="absolute bottom-0 left-1/4 w-1/2 h-48 border-t-2 border-x-2 border-emerald-500/10"></div>
+
+                <div class="data-node-1 absolute top-1/3 left-1/4 w-4 h-4 rounded-full bg-pitchGreen shadow-[0_0_20px_#22c55e]">
+                    <div class="absolute -top-7 -left-6 text-[10px] font-mono font-bold text-emerald-700 bg-white/95 px-2 py-0.5 rounded shadow-md border border-emerald-200">Scouting_Pipeline</div>
+                </div>
+                <div class="data-node-2 absolute top-1/2 left-1/2 w-4 h-4 rounded-full bg-blue-500 shadow-[0_0_20px_#3b82f6]">
+                    <div class="absolute -top-7 -left-6 text-[10px] font-mono font-bold text-blue-700 bg-white/95 px-2 py-0.5 rounded shadow-md border border-blue-200">Metric_Algorithm</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- NAVBAR -->
+        <nav class="fixed top-0 left-0 w-full bg-white/80 backdrop-blur-md border-b border-slate-100 z-50">
+            <div class="max-w-6xl mx-auto px-6 h-22 flex items-center justify-between">
+                <!-- مكان اللوغو المتحرك في الـ Navbar -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-emerald-50 border border-emerald-300 flex items-center justify-center text-pitchGreen font-bold text-xs animate-pulse">
+                        <i class="fa-solid fa-ranking-star"></i>
+                    </div>
+                    <a href="#" class="text-lg font-black tracking-widest text-slate-900 uppercase">
+                        AE <span class="text-pitchGreen">DataTactics</span>
+                    </a>
+                </div>
+                <div class="hidden md:flex items-center space-x-6 text-xs font-bold uppercase tracking-wider text-slate-600">
+                    <a href="#about" class="hover:text-pitchGreen transition">Identity</a>
+                    <a href="#journey" class="hover:text-pitchGreen transition">Capacity</a>
+                    <a href="#importance" class="hover:text-pitchGreen transition">The Edge</a>
+                    <a href="#methodology" class="hover:text-pitchGreen transition">Methodology</a>
+                    <a href="#projects" class="hover:text-pitchGreen transition">Scouting Matrix</a>
+                    <a href="#contact" class="bg-pitchGreen text-white px-5 py-2.5 rounded-xl hover:bg-emerald-600 transition shadow-md shadow-emerald-500/10">
+                        Initiate Brief
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- HERO SECTION (التعريف، الأصل، واللوغو المتحرك) -->
+        <section id="about" class="relative flex-grow flex items-center justify-center z-10 px-6 py-28">
+            <div class="max-w-5xl mx-auto text-center flex flex-col items-center">
+                
+                <!-- مكان اللوغو الكبير المتحرك والنابض وسط الهيرو -->
+                <div class="mb-8 p-3 bg-white rounded-full border border-emerald-200 shadow-xl animated-logo-zone" data-aos="zoom-in">
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-emerald-100 to-green-50 flex flex-col items-center justify-center text-pitchGreen text-3xl font-black border-2 border-pitchGreen/30 relative">
+                        <i class="fa-solid fa-diagram-project text-emerald-600"></i>
+                        <span class="absolute -bottom-1 bg-pitchGreen text-white text-[9px] px-2 py-0.5 rounded-full font-mono uppercase tracking-widest">ACTIVE</span>
+                    </div>
+                </div>
+
+                <div class="inline-flex items-center gap-2 bg-emerald-100 text-emerald-900 border border-emerald-200 rounded-full px-4 py-1.5 text-xs font-bold tracking-wide mb-6 shadow-sm" data-aos="fade-down" data-aos-duration="1000">
+                    <span class="w-2 h-2 rounded-full bg-pitchGreen animate-ping"></span> ARCHITECTING PERFORMANCE INTELLIGENCE
+                </div>
+                
+                <h1 class="text-4xl md:text-7xl font-black tracking-tight text-slate-900 leading-[1.1]" data-aos="zoom-in" data-aos-duration="1200">
+                    Abdelmonuim Ennegaz <br>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-pitchGreen to-emerald-600">From Tangier, Morocco to the Football World.</span>
+                </h1>
+                
+                <p class="mt-4 text-xl font-extrabold text-slate-700 tracking-wider font-mono" data-aos="fade-up" data-aos-delay="200">
+                    Propelled Globally By: <span class="text-pitchGreen border-b-2 border-emerald-300">AE DataTactics</span>
+                </p>
+                
+                <!-- الهدف الشامل للخدمة -->
+                <p class="mt-8 text-sm md:text-lg text-slate-600 max-w-3xl mx-auto leading-relaxed font-light" data-aos="fade-up" data-aos-delay="400">
+                    <strong class="text-slate-900 font-bold">The Strategic Objective:</strong> To build powerful, automated backend data pipelines combined with precise sports tracking metrics. We empower professional teams and management firms to neutralize financial signing failures, isolate opponent frailties, and leverage strict mathematics for consistent pitch domination.
+                </p>
+                
+                <div class="mt-12 flex flex-wrap justify-center gap-4 text-xs font-bold uppercase tracking-wider" data-aos="fade-up" data-aos-delay="600">
+                    <a href="#journey" class="bg-pitchGreen hover:bg-emerald-600 text-white px-8 py-4 rounded-xl transition shadow-lg shadow-emerald-500/20">
+                        Review Engineering Capacity
+                    </a>
+                    <a href="#importance" class="bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-8 py-4 rounded-xl transition shadow-sm">
+                        Why Data Rules Modern Football
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- SECTION 2: EXECUTIVE BIO & TECH CAPACITY (التعريف والمسيرة ومستوى البرمجة والتحليل) -->
+    <section id="journey" class="py-32 bg-white relative z-10 border-b border-slate-100">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-20" data-aos="fade-up">
+                <span class="text-xs font-bold tracking-widest text-pitchGreen uppercase">// Operational Profile</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-2 uppercase">The Conjunction of Code and Tactics</h2>
+                <p class="text-slate-500 text-xs mt-3">An elite breakdown of programming mastery and sports metric modeling.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <!-- مستوى البرمجة -->
+                <div class="premium-card p-8 rounded-2xl shadow-sm hover:border-pitchGreen/40 transition duration-300" data-aos="fade-right" data-aos-duration="1000">
+                    <div class="w-12 h-12 rounded-xl bg-emerald-50 flex items-center justify-center text-pitchGreen text-xl mb-6 border border-emerald-100"><i class="fa-solid fa-code"></i></div>
+                    <h3 class="text-lg font-black text-slate-900 uppercase">Backend Software Capacity</h3>
+                    <p class="mt-4 text-slate-600 text-xs leading-relaxed font-light">
+                        Operating at a highly specialized level, I engine robust backend structures prioritizing clean design patterns and object-oriented paradigms. My technological stack centers around **Python** and the **Django Framework**, allowing me to build lightning-fast data processing pipelines, link secure databases, and manage deployed production applications. Utilizing the advanced philosophy of **"Vibe Coding"**, I integrate cutting-edge AI tools to draft scalable architecture and review codebase health at maximum execution speeds.
+                    </p>
+                    <div class="mt-6 flex flex-wrap gap-2 text-[10px] font-mono font-bold uppercase text-emerald-700">
+                        <span class="bg-emerald-50 px-2.5 py-1 rounded border border-emerald-100">Python Core OOP</span>
+                        <span class="bg-emerald-50 px-2.5 py-1 rounded border border-emerald-100">Django Framework</span>
+                        <span class="bg-emerald-50 px-2.5 py-1 rounded border border-emerald-100">Vibe Coding Paradigm</span>
+                    </div>
+                </div>
+
+                <!-- مستوى التحليل البياني -->
+                <div class="premium-card p-8 rounded-2xl shadow-sm hover:border-blue-500/40 transition duration-300" data-aos="fade-left" data-aos-duration="1000">
+                    <div class="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center text-blue-500 text-xl mb-6 border border-blue-100"><i class="fa-solid fa-chart-line"></i></div>
+                    <h3 class="text-lg font-black text-slate-900 uppercase">Advanced Football Data Analysis</h3>
+                    <p class="mt-4 text-slate-600 text-xs leading-relaxed font-light">
+                        My analytical performance tier focuses on translating raw video footage and unorganized tracking data into competitive tactical intelligence. I build statistical models that evaluate expected contributions ($xG$, $xA$), passing networks under high pressure, space utilization metrics, and defensive covering lines. I remove the danger of subjective scouting opinions, providing management with mathematically grounded, objective performance matrices.
+                    </p>
+                    <div class="mt-6 flex flex-wrap gap-2 text-[10px] font-mono font-bold uppercase text-blue-700">
+                        <span class="bg-blue-50 px-2.5 py-1 rounded border border-blue-100">Video Scouting Extraction</span>
+                        <span class="bg-blue-50 px-2.5 py-1 rounded border border-blue-100">Advanced Pitch Metrics</span>
+                        <span class="bg-blue-50 px-2.5 py-1 rounded border border-blue-100">Recruitment Optimization</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: THE STRATEGIC IMPORTANCE OF FIELD DATA -->
+    <section id="importance" class="py-32 bg-slate-50 relative z-10 border-b border-slate-100">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-20" data-aos="fade-up">
+                <span class="text-xs font-bold tracking-widest text-pitchGreen uppercase">// Elite Analytics Breakdown</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-2 uppercase">How Data Architecture Empowers Professional Football Clubs</h2>
+                <p class="text-slate-500 text-xs mt-3">Intuition fails. Numbers endure. Here is how modern clubs utilize performance mathematics to dominate leagues.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- فائدة 1 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-50 text-pitchGreen flex items-center justify-center text-md font-bold mb-5 border border-emerald-100"><i class="fa-solid fa-money-bill-trend-up"></i></div>
+                    <h3 class="text-base font-bold text-slate-900 uppercase">1. Eradicating Scouting Budget Deficits</h3>
+                    <p class="text-slate-600 text-xs mt-3 leading-relaxed font-light">
+                        Clubs routinely lose millions signing a forward based on a phenomenal 10-match streak. Advanced analytical data looks straight past human hype; it tracks continuous metrics over 3,000 minutes, assessing if the performance is sustainable or an statistical fluke. This shields clubs from massive financial investment failures.
+                    </p>
+                </div>
+
+                <!-- فائدة 2 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-50 text-pitchGreen flex items-center justify-center text-md font-bold mb-5 border border-emerald-100"><i class="fa-solid fa-chess"></i></div>
+                    <h3 class="text-base font-bold text-slate-900 uppercase">2. Tactical Opponent Deconstruction</h3>
+                    <p class="text-slate-600 text-xs mt-3 leading-relaxed font-light">
+                        Data tracking structures map the exact pathways an opposing manager relies on to break heavy presses. It extracts their deep spacing errors, passing tendencies under pressure, and fatigue-related defensive lag locations. Coaches use this to tailor tactical presets before the game even begins.
+                    </p>
+                </div>
+
+                <!-- فائدة 3 -->
+                <div class="bg-white p-8 rounded-2xl border border-slate-200/60 shadow-sm" data-aos="fade-up" data-aos-delay="500">
+                    <div class="w-10 h-10 rounded-lg bg-emerald-50 text-pitchGreen flex items-center justify-center text-md font-bold mb-5 border border-emerald-100"><i class="fa-solid fa-arrow-trend-up"></i></div>
+                    <h3 class="text-base font-bold text-slate-900 uppercase">3. Engineering Player Margins</h3>
+                    <p class="text-slate-600 text-xs mt-3 leading-relaxed font-light">
+                        Human eyes suffer from severe memory bias. Algorithmic software systems log every challenge, physical block, and off-the-ball recovery run objectively. It flags technical drops or steady tactical growths instantly, arming staff with purely clinical truths to maximize overall athlete valuation.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: THE CORE METHODOLOGY -->
+    <section id="methodology" class="py-32 bg-white relative z-10 border-b border-slate-100">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-20" data-aos="fade-up">
+                <span class="text-xs font-bold tracking-widest text-pitchGreen uppercase">// Operational Steps</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-2 uppercase">From Raw Video To Deployed Algorithmic Assets</h2>
+                <p class="text-slate-500 text-xs mt-3">A transparent review of how AE DataTactics engineers solutions.</p>
+            </div>
+
+            <div class="relative border-l border-emerald-100 ml-4 md:ml-32 space-y-12">
+                <!-- الخطوة 1 -->
+                <div class="relative pl-8" data-aos="fade-up">
+                    <div class="absolute -left-3.5 top-0 w-7 h-7 rounded-full bg-white border-2 border-pitchGreen flex items-center justify-center text-xs font-bold text-pitchGreen shadow-sm">1</div>
+                    <h4 class="text-base font-bold text-slate-900 uppercase">Video Feed Ingestion & Tagging</h4>
+                    <p class="text-slate-600 text-xs mt-2 max-w-2xl font-light leading-relaxed">
+                        We process high-angle tactical camera feeds, isolating individual coordinates and tracking event contexts (passes, pressing vectors, body posture angles).
+                    </p>
+                </div>
+                <!-- الخطوة 2 -->
+                <div class="relative pl-8" data-aos="fade-up" data-aos-delay="100">
+                    <div class="absolute -left-3.5 top-0 w-7 h-7 rounded-full bg-white border-2 border-pitchGreen flex items-center justify-center text-xs font-bold text-pitchGreen shadow-sm">2</div>
+                    <h4 class="text-base font-bold text-slate-900 uppercase">Algorithmic Filtering & Modeling</h4>
+                    <p class="text-slate-600 text-xs mt-2 max-w-2xl font-light leading-relaxed">
+                        Python analytical scripts transform raw coordinates into customized metrics. We filter the noise to discover real value data points like territory control percentages and expected threat tracking ($xT$).
+                    </p>
+                </div>
+                <!-- الخطوة 3 -->
+                <div class="relative pl-8" data-aos="fade-up" data-aos-delay="200">
+                    <div class="absolute -left-3.5 top-0 w-7 h-7 rounded-full bg-white border-2 border-pitchGreen flex items-center justify-center text-xs font-bold text-pitchGreen shadow-sm">3</div>
+                    <h4 class="text-base font-bold text-slate-900 uppercase">Django Infrastructure Deployment</h4>
+                    <p class="text-slate-600 text-xs mt-2 max-w-2xl font-light leading-relaxed">
+                        The models are bundled into secure, cloud-hosted Django dashboards. Club personnel can retrieve customized scouting lists and visual reports instantly, securely, and seamlessly.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: THE SCOUTING MATRIX / PORTFOLIO -->
+    <section id="projects" class="py-32 bg-[#f8fafc] relative z-10 border-b border-slate-100">
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-20 border-b border-slate-200/60 pb-6" data-aos="fade-up">
+                <div>
+                    <span class="text-xs font-bold tracking-widest text-pitchGreen uppercase font-mono">// Active Repository Assets</span>
+                    <h2 class="text-3xl font-black text-slate-900 mt-1 uppercase">Production Systems & Applied Models</h2>
+                </div>
+                <p class="text-slate-500 text-xs max-w-xs mt-3 md:mt-0 leading-relaxed font-light">Review live digital applications structured directly from my database pipelines.</p>
+            </div>
+
+            <!-- Projects Grid Loop -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {% for project in projects %}
+                <div class="premium-card rounded-2xl overflow-hidden transition-all duration-500 group flex flex-col h-full transform hover:-translate-y-1.5 hover:shadow-xl hover:shadow-emerald-500/5 hover:border-pitchGreen/40 cursor-pointer"
+     data-aos="fade-up"
+     data-aos-duration="1000"
+
+     onclick="openModal(
+     '{{ project.title|escapejs }}',
+     '{{ project.description|escapejs }}',
+     '{{ project.image1.url }}',
+     '{{ project.image2.url }}',
+     '{{ project.image3.url }}'
+     )">
+                    
+                    <!-- SLIDER CONTAINER (3 Images) -->
+                    <div class="relative overflow-hidden aspect-[16/10] bg-slate-100 group/slider border-b border-slate-100">
+                        <div class="flex overflow-x-auto snap-x snap-mandatory no-scrollbar h-full w-full scroll-smooth" id="slider-{{ project.id }}">
+                            {% if project.image1 %}
+                            <div class="snap-start w-full h-full flex-shrink-0">
+                                <img src="{{ project.image1.url }}" alt="Slide 1" class="w-full h-full object-cover transition duration-500 group-hover:scale-105">
+                            </div>
+                            {% endif %}
+                            {% if project.image2 %}
+                            <div class="snap-start w-full h-full flex-shrink-0">
+                                <img src="{{ project.image2.url }}" alt="Slide 2" class="w-full h-full object-cover">
+                            </div>
+                            {% endif %}
+                            {% if project.image3 %}
+                            <div class="snap-start w-full h-full flex-shrink-0">
+                                <img src="{{ project.image3.url }}" alt="Slide 3" class="w-full h-full object-cover">
+                            </div>
+                            {% endif %}
+                            
+                            {% if not project.image1 and not project.image2 and not project.image3 %}
+                            <div class="w-full h-full flex items-center justify-center text-slate-400 bg-slate-50">
+                                <i class="fa-solid fa-chart-pie text-4xl"></i>
+                            </div>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="absolute bottom-3 right-3 bg-white/90 backdrop-blur px-2.5 py-1 rounded text-[10px] text-emerald-800 font-bold border border-emerald-100 opacity-0 group-hover/slider:opacity-100 transition duration-300 shadow-sm">
+                            <i class="fa-solid fa-images mr-1 text-pitchGreen"></i> GALLERY VIEW
+                        </div>
+                    </div>
+
+                    <!-- Card Body -->
+                    <div class="p-6 flex flex-col flex-grow">
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-pitchGreen transition duration-300 uppercase tracking-tight">{{ project.title }}</h3>
+                        <p class="mt-3 text-slate-600 text-xs leading-relaxed flex-grow font-light line-clamp-4">
+                            {{ project.description }}
+                        </p>
+                        
+                        <!-- Fixed Indicators -->
+                        <div class="mt-5 flex items-center gap-2 text-[10px] text-emerald-700 font-bold bg-emerald-50 px-2.5 py-1.5 rounded border border-emerald-100 w-fit">
+                            <span><i class="fa-brands fa-python text-pitchGreen"></i> Python Pipeline</span>
+                            <span class="text-emerald-200">|</span>
+                            <span><i class="fa-solid fa-futbol text-emerald-500"></i> Analytics Asset</span>
+                        </div>
+
+                        <!-- Links -->
+                        <div class="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-4 text-xs font-bold">
+                            {% if project.github_link %}
+                            <a href="{{ project.github_link }}" target="_blank" class="text-slate-500 hover:text-slate-900 flex items-center gap-2 transition font-mono">
+                                <i class="fa-brands fa-github text-sm"></i> SOURCE_CODE
+                            </a>
+                            {% endif %}
+                            
+                            {% if project.live_link %}
+                            <a href="{{ project.live_link }}" target="_blank" class="text-pitchGreen hover:text-emerald-700 flex items-center gap-1 transition font-mono">
+                                LIVE_DEMO <i class="fa-solid fa-square-arrow-up-right text-[10px] ml-0.5"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <div class="col-span-full text-center py-20 text-slate-400 bg-white rounded-2xl border border-slate-200/60 shadow-sm" data-aos="fade-up">
+                    <i class="fa-solid fa-folder-open text-3xl mb-3 text-slate-300"></i>
+                    <p class="text-xs font-mono uppercase tracking-widest">No deployed matrix architecture found. Seed the admin interface.</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 6: FREELANCE CLIENTELE CORE -->
+    <section class="py-32 bg-white relative z-10 border-b border-slate-100">
+        <div class="max-w-5xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-20" data-aos="fade-up">
+                <span class="text-xs font-bold tracking-widest text-pitchGreen uppercase">// Core Targets</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-2 uppercase">Target Clientele Networks</h2>
+                <p class="text-slate-500 text-xs mt-3">We architect metrics and bespoke backend spaces specifically engineered for:</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100" data-aos="zoom-in" data-aos-delay="100">
+                    <i class="fa-solid fa-shield text-2xl text-pitchGreen mb-4"></i>
+                    <h4 class="text-sm font-bold text-slate-900 uppercase">Professional Clubs</h4>
+                    <p class="text-slate-500 text-[11px] mt-2 leading-relaxed">Providing high-grade tactical overviews and advanced opponent breakdown pipelines to direct scouting staffs.</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100" data-aos="zoom-in" data-aos-delay="200">
+                    <i class="fa-solid fa-user-tie text-2xl text-pitchGreen mb-4"></i>
+                    <h4 class="text-sm font-bold text-slate-900 uppercase">Sports Agencies</h4>
+                    <p class="text-slate-500 text-[11px] mt-2 leading-relaxed">Compiling undeniable analytical visual dossiers to display client elite levels during transfer windows.</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100" data-aos="zoom-in" data-aos-delay="300">
+                    <i class="fa-solid fa-graduation-cap text-2xl text-pitchGreen mb-4"></i>
+                    <h4 class="text-sm font-bold text-slate-900 uppercase">Elite Academies</h4>
+                    <p class="text-slate-500 text-[11px] mt-2 leading-relaxed">Tracking young athlete growth trajectories purely objectively over multi-season developmental charts.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 7: TACTICAL FAQ -->
+    <section class="py-32 bg-[#f8fafc] relative z-10 border-b border-slate-100">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="text-center max-w-2xl mx-auto mb-20" data-aos="fade-up">
+                <span class="text-xs font-bold tracking-widest text-pitchGreen uppercase">// Knowledge Base</span>
+                <h2 class="text-3xl font-black text-slate-900 mt-2 uppercase">Frequently Asked Questions</h2>
+            </div>
+
+            <div class="space-y-6 text-xs">
+                <div class="p-6 bg-white rounded-xl border border-slate-200/60 shadow-sm" data-aos="fade-up">
+                    <h4 class="font-bold text-slate-900 uppercase">Q: What makes data analytics superior to standard manual video scouting?</h4>
+                    <p class="text-slate-600 mt-2 leading-relaxed font-light">A: Standard scouting captures obvious highlights but easily falls prey to personal preference or cognitive biases. Analytical mapping extracts complete, micro-level positioning data, identifying an elite player's hidden consistency that casual observers easily overlook.</p>
+                </div>
+                <div class="p-6 bg-white rounded-xl border border-slate-200/60 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+                    <h4 class="font-bold text-slate-900 uppercase">Q: How does the backend integration process occur?</h4>
+                    <p class="text-slate-600 mt-2 leading-relaxed font-light">A: We implement secure Python pipelines that cleanly sort messy incoming data points. Everything is then centralized inside a safe Django dashboard, ensuring coaches can filter profiles smoothly without dealing with complex calculations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 8: INTAKE SECURE CHANNEL / CONTACT -->
+    <section id="contact" class="py-32 bg-white relative z-10">
+        <div class="max-w-4xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div data-aos="fade-right" data-aos-duration="1000">
+                    <span class="text-xs font-bold tracking-widest text-pitchGreen uppercase font-mono">// Secured Intake Matrix</span>
+                    <h2 class="text-2xl md:text-3xl font-black text-slate-900 mt-2 uppercase tracking-tight">Initiate Briefing Session</h2>
+                    <p class="mt-4 text-slate-600 text-xs leading-relaxed font-light">
+                        Connect directly to establish your customized tracking parameters or code architecture needs. Let's build tactical assets that scale.
+                    </p>
+                    <div class="mt-6 space-y-3 text-xs font-mono">
+                        <div class="flex items-center gap-3 text-slate-600">
+                            <i class="fa-solid fa-envelope text-pitchGreen"></i> monuim378@gmail.com
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-600">
+                            <i class="fa-solid fa-location-dot text-pitchGreen"></i> Tangier, Morocco
+                        </div>
+                    </div>
+                </div>
+
+                <!-- نموذج الاتصال -->
+                <div class="premium-card p-8 rounded-2xl shadow-md border border-slate-100" data-aos="fade-left" data-aos-duration="1000">
+                    <form action="#" method="POST" class="space-y-4 text-xs">
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-1">Entity Name / Representative</label>
+                            <input type="text" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-pitchGreen font-light" placeholder="e.g. Athletic Club / Agent">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-1">Secure Return Digital Mail</label>
+                            <input type="email" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-pitchGreen font-light" placeholder="scouting@entity.com">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-600 mb-1">Operational Requirements Brief</label>
+                            <textarea rows="4" required class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:border-pitchGreen font-light resize-none" placeholder="Outline code architecture scale or match analysis specifications..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-pitchGreen hover:bg-emerald-600 text-white font-bold uppercase tracking-widest py-3.5 rounded-xl transition shadow-md shadow-emerald-500/10">
+                            Transmit Brief Protocol
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+     
+
+
+
+<div id="projectModal"
+     class="fixed inset-0 bg-black/80 backdrop-blur-md hidden items-center justify-center z-[9999]">
+
+    <button onclick="closeModal()"
+            class="absolute top-5 right-8 text-white text-5xl font-bold">
+        ×
+    </button>
+
+    <div class="w-[95%] max-w-7xl">
+
+        <div class="grid md:grid-cols-3 gap-6">
+
+            <img id="modalImg1"
+                 class="w-full h-[600px] object-cover rounded-3xl shadow-2xl">
+
+            <img id="modalImg2"
+                 class="w-full h-[600px] object-cover rounded-3xl shadow-2xl">
+
+            <img id="modalImg3"
+                 class="w-full h-[600px] object-cover rounded-3xl shadow-2xl">
+
+        </div>
+
+    </div>
+
+</div>
+            <div class="p-4 space-y-3">
+
+                <img id="modalImg1" class="rounded-xl w-full">
+
+                <img id="modalImg2" class="rounded-xl w-full">
+
+                <img id="modalImg3" class="rounded-xl w-full">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+
+
+
+    <!-- FOOTER -->
+    <footer class="bg-slate-900 text-slate-400 text-xs py-12 border-t border-slate-800">
+        <div class="max-w-5xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6 font-mono">
+            <p>&copy; 2026 AE DataTactics. Engineered for Pitch Supremacy.</p>
+            <div class="flex space-x-4">
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-github text-sm"></i></a>
+                <a href="#" class="hover:text-white transition"><i class="fa-brands fa-linkedin text-sm"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- AOS Animation Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+AOS.init({
+    once: true,
+    duration: 800
+});
+
+window.addEventListener("load", function() {
+    setTimeout(() => {
+        const splash = document.getElementById("splash-screen");
+
+        splash.style.opacity = "0";
+
+        setTimeout(() => {
+            splash.style.display = "none";
+        }, 1000);
+
+    }, 4000);
+});
+
+function openModal(title, description, img1, img2, img3){
+
+    document.getElementById("modalImg1").src = img1 || "";
+    document.getElementById("modalImg2").src = img2 || "";
+    document.getElementById("modalImg3").src = img3 || "";
+
+    document.getElementById("projectModal").classList.remove("hidden");
+    document.getElementById("projectModal").classList.add("flex");
+}
+
+function closeModal(){
+
+    document.getElementById("projectModal").classList.add("hidden");
+    document.getElementById("projectModal").classList.remove("flex");
+}
+</script>
+</body>
+</html>

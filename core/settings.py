@@ -78,9 +78,10 @@ USE_TZ = True
 
 # Static & Media Files
 STATIC_URL = '/static/'
+# هذا يخبر Django أين يجد المجلد في جهازك
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] 
+# هذا يخبر Django أين يجمع الصور للإنتاج
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 

@@ -76,12 +76,11 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static & Media Files
-STATIC_URL = '/static/'
-# هذا يخبر Django أين يجد المجلد في جهازك
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] 
-# هذا يخبر Django أين يجمع الصور للإنتاج
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'static'),
+]
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
@@ -90,6 +89,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'abdelmonuim.ennegaz@gmail.com'
+EMAIL_HOST_USER = 'monuim378@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', 'your-16-digit-app-password')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
